@@ -1,7 +1,7 @@
-insertElasticSearch:
-	docker compose up -d es01 es02 kibana &&\
+setup:
+	docker-compose up -d &&\
 	sleep 60 &&\
-	sh ./config/elastic/insert_data.sh
+	sh ./config/elasticsearch/insert_data.sh
 
 test:
 	go test -v ./interfaces/...
