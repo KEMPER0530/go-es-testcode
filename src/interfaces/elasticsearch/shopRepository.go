@@ -100,8 +100,8 @@ func (repo *SearchRepository) applyKeyword(keyword string, req *domain.ShopSearc
 			CombinedFields: domain.CombinedFieldsValue{
 				Query: keyword,
 				Fields: []string{
-					"cates^1.5",
-					"kuchikomi^2",
+					"cates",
+					// "kuchikomi",
 				},
 			},
 		})
@@ -115,10 +115,10 @@ func (repo *SearchRepository) applyArea(area string, req *domain.ShopSearchReque
 			CombinedFields: domain.CombinedFieldsValue{
 				Query: area,
 				Fields: []string{
-					"area_name^2",
-					"stas^2",
-					"address^2",
-					"pref_name^1.5",
+					"area_name^3",
+					"pref_name^2",
+					"stas",
+					"address",
 				},
 			},
 		})
@@ -132,7 +132,7 @@ func (repo *SearchRepository) applyShopname(shopname string, req *domain.ShopSea
 			CombinedFields: domain.CombinedFieldsValue{
 				Query: shopname,
 				Fields: []string{
-					"name^1.5",
+					"name",
 				},
 			},
 		})
