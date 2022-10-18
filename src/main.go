@@ -1,15 +1,17 @@
 package main
 
 import (
-	"log"
 	"fmt"
+	"log"
 	"os"
+
 	"github.com/joho/godotenv"
 
 	"context"
+
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
-	"github.com/awslabs/aws-lambda-go-api-proxy/gin"
+	ginadapter "github.com/awslabs/aws-lambda-go-api-proxy/gin"
 
 	"go-es-testcode/src/infrastructure"
 )
@@ -17,17 +19,17 @@ import (
 var ginLambda *ginadapter.GinLambda
 
 func init() {
-  if os.Getenv("GO_ENV") == "production" {
-    r := infrastructure.NewRouting()
-    ginLambda = ginadapter.New(r.Gin)
-  }
+	if os.Getenv("GO_ENV") == "production" {
+		r := infrastructure.NewRouting()
+		ginLambda = ginadapter.New(r.Gin)
+	}
 }
 
 func main() {
 	if os.Getenv("GO_ENV") == "production" {
 		fmt.Println("Production mode...")
 		lambda.Start(Handler)
-	}else{
+	} else {
 		fmt.Println("Development mode...")
 		// 環境変数ファイルの読込
 		err := godotenv.Load(fmt.Sprintf("src/infrastructure/%s.env", os.Getenv("GO_ENV")))

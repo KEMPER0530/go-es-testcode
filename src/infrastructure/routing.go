@@ -1,27 +1,26 @@
 package infrastructure
 
 import (
-	// Gin
-	"github.com/gin-contrib/cors"
-	"github.com/gin-gonic/gin"
 	"os"
 	"time"
 
-	// コントローラー
-	controllers "go-es-testcode/src/interfaces/controllers"
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
+
+	"go-es-testcode/src/interfaces/controllers"
 )
 
 type Routing struct {
-    Gin *gin.Engine
-    Port string
+	Gin  *gin.Engine
+	Port string
 }
 
 func NewRouting() *Routing {
-  r := &Routing{
-      Gin: gin.Default(),
-      Port: ":" + os.Getenv("PORT"),
-  }
-  r.setRouting()
+	r := &Routing{
+		Gin:  gin.Default(),
+		Port: ":" + os.Getenv("PORT"),
+	}
+	r.setRouting()
 	return r
 }
 
@@ -37,14 +36,14 @@ func (r *Routing) setRouting() {
 	r.Gin.Use(setCors())
 
 	// コントローラーの設定
-	ESController := controllers.NewESController()
+	ESController := controllers.NewESController(&ElasticConnection{})
 	// ElasticSearchにアクセスして接続確認を行う
-	r.Gin.GET("/v1/healthCheck", func (c *gin.Context) { ESController.HealthCheck(c,d) })
+	r.Gin.GET("/v1/findshop", func(c *gin.Context) { ESController.FindShop(c) })
 
 }
 
 func Run(r *Routing) {
-    r.Gin.Run(r.Port)
+	r.Gin.Run(r.Port)
 }
 
 // Cross-Origin Resource Sharing (CORS) is a mechanism

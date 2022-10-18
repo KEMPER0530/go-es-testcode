@@ -8,5 +8,5 @@ test:
 	go test -v ./usecase/...
 
 mockgen:
-	mockgen -source=usecase/search_repository.go -destination usecase/mock/search_repository.go
-	mockgen -source=interfaces/elasticsearch/elastic.go -destination interfaces/elasticsearch/mock/elastic.go
+	mockgen -source=src/usecase/esRepository.go -destination src/usecase/mock/esRepository.go
+	mockgen -source=src/interfaces/elasticsearch/elastic.go -destination src/interfaces/elasticsearch/mock/elastic.go

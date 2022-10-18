@@ -21,18 +21,19 @@ services:
       - "elasticsearch.hosts=elasticsearch:10200"
     networks:
       - esnet
-  # api:
-  #   container_name: api
-  #   build:
-  #     context: .
-  #     dockerfile: ./config/go/Dockerfile
-  #   tty: true
+  api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: ./config/go/Dockerfile
+    image: test_api
+    tty: true
     # volumes:
     #   - ./src:/go/src/go-es-testcode
-    # ports:
-    #   - '50051:50051'
-    # networks:
-    #   - esnet
+    ports:
+      - '8090:8090'
+    networks:
+      - esnet
 
 networks:
   esnet:
