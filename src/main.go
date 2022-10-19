@@ -32,7 +32,7 @@ func main() {
 	} else {
 		fmt.Println("Development mode...")
 		// 環境変数ファイルの読込
-		err := godotenv.Load(fmt.Sprintf("src/infrastructure/%s.env", os.Getenv("GO_ENV")))
+		err := godotenv.Load(fmt.Sprintf("src/%s.env", os.Getenv("GO_ENV")))
 		if err != nil {
 			log.Fatal(err)
 		}

@@ -1,6 +1,7 @@
 version: '3.8'
 services:
   elasticsearch:
+    container_name: es
     build:
       context: ./config/elasticsearch
     image: test_es
@@ -9,9 +10,14 @@ services:
       - '9300:9300'
     environment:
       - "discovery.type=single-node"
+    volumes:
+      # コンテナのディレクトリをvolumeへマウント
+      # ボリューム名:マウント対象のパス
+      - es-data:/usr/share/elasticsearch/data
     networks:
       - esnet
   kibana:
+    container_name: kibana
     build:
       context: ./config/kibana
     image: test_kibana
@@ -22,18 +28,23 @@ services:
     networks:
       - esnet
   api:
-    container_name: api
+    container_name: es_api
     build:
       context: .
       dockerfile: ./config/go/Dockerfile
     image: test_api
     tty: true
-    # volumes:
-    #   - ./src:/go/src/go-es-testcode
+    volumes:
+      - ./src:/go/src/go-es-testcode
     ports:
       - '8090:8090'
+    environment:
+      GO_ENV: development
     networks:
       - esnet
-
+volumes:
+  es-data:
+    # ボリューム'es-data'はlocalに保存します
+    driver: local
 networks:
   esnet:
