@@ -64,7 +64,7 @@ type ShopSearch struct {
 				Location         []float64 `json:"location"`
 				Stas             []string  `json:"stas"`
 				Cates            []string  `json:"cates"`
-				Kuchikomi        []string  `json:"kuchikomi,omitempty"`
+				Kuchikomi        []string  `json:"kuchikomi"`
 			} `json:"_source"`
 		} `json:"hits"`
 	} `json:"hits"`
