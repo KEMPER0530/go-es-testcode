@@ -26,12 +26,12 @@ $ make setup
 
 # Usage
 
-### 検索例
+### 検索例(jq コマンドを利用することで見やすくなります)
 
 ```
-$ curl -X GET http://localhost:8090/v1/findshop?keyword=中華料理&area=東京&name=謝
+$ curl -X GET "http://localhost:8090/v1/findshop?keyword=中華料理&area=東京&name=謝" | jq
 ```
 
 ### kibana の使用例
 
-kibana は[こちら](http://localhost:9200)
+kibana は[こちら](http://localhost:5601)
