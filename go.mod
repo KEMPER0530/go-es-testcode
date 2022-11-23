@@ -1,21 +1,21 @@
 module go-es-testcode
 
-go 1.17
+go 1.19
 
 require (
-	github.com/aws/aws-lambda-go v1.34.1
+	github.com/aws/aws-lambda-go v1.35.0
 	github.com/awslabs/aws-lambda-go-api-proxy v0.13.3
-	github.com/elastic/go-elasticsearch/v8 v8.4.0
+	github.com/elastic/go-elasticsearch/v8 v8.5.0
 	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-gonic/gin v1.8.1
-	github.com/golang/mock v1.5.0
+	github.com/golang/mock v1.6.0
 	github.com/joho/godotenv v1.4.0
-	github.com/stretchr/testify v1.8.0
+	github.com/stretchr/testify v1.8.1
 )
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/elastic/elastic-transport-go/v8 v8.1.0 // indirect
+	github.com/elastic/elastic-transport-go/v8 v8.0.0-20211216131617-bbee439d559c // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect

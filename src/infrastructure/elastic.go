@@ -10,7 +10,6 @@ import (
 	"os"
 	"strconv"
 	"time"
-
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 )
@@ -23,7 +22,6 @@ func (e *ElasticConnection) ConnectElastic(eshost string) (*elasticsearch.Client
 	_ResponseHeaderTimeout, _ := strconv.Atoi(os.Getenv("RESPONSE_HEADER_TIMEOUT"))
 	_Timeout, _ := strconv.Atoi(os.Getenv("TIME_OUT"))
 	_KeepAlive, _ := strconv.Atoi(os.Getenv("KEEP_ALIVE"))
-
 	es, err := elasticsearch.NewClient(elasticsearch.Config{
 		Addresses: []string{
 			eshost,

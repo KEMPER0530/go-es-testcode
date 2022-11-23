@@ -17,7 +17,7 @@ func Test_FindShop(t *testing.T) {
 	// 共通利用するstructを設定
 	var i usecase.ESInteractor
 
-	t.Run("1:FindShopメソッドのテスト(正常系)", func(t *testing.T) {
+	t.Run("1:FindShopメソッドのテスト(Elasticsearchサーバーの動作をモックするパターン)", func(t *testing.T) {
 
 		// gomockの利用設定
 		ctrl := gomock.NewController(t)
@@ -25,8 +25,8 @@ func Test_FindShop(t *testing.T) {
 
 		MockESRepository := mock_repository.NewMockESRepository(ctrl)
 
-		// テストデータ読み込み
-		bytes, err := ioutil.ReadFile("./test_data_1.json")
+		// ElasticSearchサーバーの動作を返却するテストデータ
+		bytes, err := ioutil.ReadFile("../../../config/elasticsearch/test_data/test_data_1.json")
 		if err != nil {
 			panic(err)
 		}
@@ -56,5 +56,8 @@ func Test_FindShop(t *testing.T) {
 		assert.Equal(t, fs.Hits.Hits[1].Source.Name, "テストラーメン２")
 		assert.Equal(t, fs.Hits.Hits[2].Source.Id, int64(18007))
 		assert.Equal(t, fs.Hits.Hits[2].Source.Name, "テストラーメン３")
+	})
+
+	t.Run("2:FindShopメソッドのテスト(DockerコンテナーでElasticsearchの実際のインスタンスを実行)", func(t *testing.T) {
 	})
 }
