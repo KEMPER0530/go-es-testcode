@@ -29,7 +29,7 @@ $ make setup
 ### 検索例
 
 ```
-$ http://localhost:8090/v1/fdshop?keyword=中華料理&area=東京&name=謝
+$ curl -X GET http://localhost:8090/v1/findshop?keyword=中華料理&area=東京&name=謝
 ```
 
 ### kibana の使用例
