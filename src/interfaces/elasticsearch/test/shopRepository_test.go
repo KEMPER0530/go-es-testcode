@@ -19,8 +19,6 @@ func Test_FindShopList(t *testing.T) {
 	var r elasticsearch.SearchRepository
 	r.EsHost = "dummy-host"
 	r.EsIndexShop = "dummy-shop"
-	r.EsIndexMenu = "dummy-menu"
-	r.EsIndexSuggest = "dummy-suggest"
 	r.EsCon = &infrastructure.ElasticConnection{} // ←は後でmockに差し替える
 
 	t.Run("1:FindShopメソッドのテスト(Elasticsearchサーバーの動作をモックするパターン)", func(t *testing.T) {

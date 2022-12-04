@@ -8,8 +8,8 @@ ENV PATH=$PATH:$GOPATH/src/github.com/go-es-testcode
 WORKDIR $GOPATH/src/github.com/go-es-testcode
 COPY /src $GOPATH/src/github.com/go-es-testcode/src
 COPY /config $GOPATH/src/github.com/go-es-testcode/config
+COPY go.mod $GOPATH/src/github.com/go-es-testcode
 
-RUN go mod init go-es-testcode
 RUN go mod tidy
 
 RUN GOOS=linux go build -o go-es-testcode ./src

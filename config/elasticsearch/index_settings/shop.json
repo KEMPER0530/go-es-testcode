@@ -35,261 +35,259 @@
                     "filter": []
                 }
             }
-        },
-        "mappings": {
-            "test_shop": {
-                "properties": {
-                    "id": {
-                        "type": "integer"
-                    },
-                    "name": {
+        }
+    },
+    "mappings": {
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "name": {
+                "type": "text",
+                "analyzer": "ja_kuromoji_index_analyzer",
+                "search_analyzer": "ja_kuromoji_search_analyzer",
+                "fields": {
+                    "ngram": {
                         "type": "text",
-                        "analyzer": "ja_kuromoji_index_analyzer",
-                        "search_analyzer": "ja_kuromoji_search_analyzer",
-                        "fields": {
-                            "ngram": {
-                                "type": "text",
-                                "analyzer": "ja_ngram_index_analyzer",
-                                "search_analyzer": "ja_ngram_search_analyzer"
-                            }
-                        }
-                    },
-                    "property": {
+                        "analyzer": "ja_ngram_index_analyzer",
+                        "search_analyzer": "ja_ngram_search_analyzer"
+                    }
+                }
+            },
+            "property": {
+                "type": "text",
+                "analyzer": "ja_kuromoji_index_analyzer",
+                "search_analyzer": "ja_kuromoji_search_analyzer",
+                "fields": {
+                    "ngram": {
                         "type": "text",
-                        "analyzer": "ja_kuromoji_index_analyzer",
-                        "search_analyzer": "ja_kuromoji_search_analyzer",
-                        "fields": {
-                            "ngram": {
-                                "type": "text",
-                                "analyzer": "ja_ngram_index_analyzer",
-                                "search_analyzer": "ja_ngram_search_analyzer"
-                            }
-                        }
-                    },
-                    "alphabet": {
+                        "analyzer": "ja_ngram_index_analyzer",
+                        "search_analyzer": "ja_ngram_search_analyzer"
+                    }
+                }
+            },
+            "alphabet": {
+                "type": "text",
+                "analyzer": "ja_kuromoji_index_analyzer",
+                "search_analyzer": "ja_kuromoji_search_analyzer",
+                "fields": {
+                    "ngram": {
                         "type": "text",
-                        "analyzer": "ja_kuromoji_index_analyzer",
-                        "search_analyzer": "ja_kuromoji_search_analyzer",
-                        "fields": {
-                            "ngram": {
-                                "type": "text",
-                                "analyzer": "ja_ngram_index_analyzer",
-                                "search_analyzer": "ja_ngram_search_analyzer"
-                            }
-                        }
-                    },
-                    "name_kana": {
+                        "analyzer": "ja_ngram_index_analyzer",
+                        "search_analyzer": "ja_ngram_search_analyzer"
+                    }
+                }
+            },
+            "name_kana": {
+                "type": "text",
+                "analyzer": "ja_kuromoji_index_analyzer",
+                "search_analyzer": "ja_kuromoji_search_analyzer",
+                "fields": {
+                    "ngram": {
                         "type": "text",
-                        "analyzer": "ja_kuromoji_index_analyzer",
-                        "search_analyzer": "ja_kuromoji_search_analyzer",
-                        "fields": {
-                            "ngram": {
-                                "type": "text",
-                                "analyzer": "ja_ngram_index_analyzer",
-                                "search_analyzer": "ja_ngram_search_analyzer"
-                            }
-                        }
-                    },
-                    "pref_id": {
-                        "type": "keyword"
-                    },
-                    "area_id": {
-                        "type": "keyword"
-                    },
-                    "station_id1": {
-                        "type": "keyword"
-                    },
-                    "station_time1": {
-                        "type": "keyword"
-                    },
-                    "station_distance1": {
-                        "type": "keyword"
-                    },
-                    "station_id2": {
-                        "type": "keyword"
-                    },
-                    "station_time2": {
-                        "type": "keyword"
-                    },
-                    "station_distance2": {
-                        "type": "keyword"
-                    },
-                    "station_id3": {
-                        "type": "keyword"
-                    },
-                    "station_time3": {
-                        "type": "keyword"
-                    },
-                    "station_distance3": {
-                        "type": "keyword"
-                    },
-                    "category_id1": {
-                        "type": "keyword"
-                    },
-                    "category_id2": {
-                        "type": "keyword"
-                    },
-                    "category_id3": {
-                        "type": "keyword"
-                    },
-                    "category_id4": {
-                        "type": "keyword"
-                    },
-                    "category_id5": {
-                        "type": "keyword"
-                    },
-                    "zip": {
-                        "type": "keyword"
-                    },
-                    "address": {
+                        "analyzer": "ja_ngram_index_analyzer",
+                        "search_analyzer": "ja_ngram_search_analyzer"
+                    }
+                }
+            },
+            "pref_id": {
+                "type": "keyword"
+            },
+            "area_id": {
+                "type": "keyword"
+            },
+            "station_id1": {
+                "type": "keyword"
+            },
+            "station_time1": {
+                "type": "keyword"
+            },
+            "station_distance1": {
+                "type": "keyword"
+            },
+            "station_id2": {
+                "type": "keyword"
+            },
+            "station_time2": {
+                "type": "keyword"
+            },
+            "station_distance2": {
+                "type": "keyword"
+            },
+            "station_id3": {
+                "type": "keyword"
+            },
+            "station_time3": {
+                "type": "keyword"
+            },
+            "station_distance3": {
+                "type": "keyword"
+            },
+            "category_id1": {
+                "type": "keyword"
+            },
+            "category_id2": {
+                "type": "keyword"
+            },
+            "category_id3": {
+                "type": "keyword"
+            },
+            "category_id4": {
+                "type": "keyword"
+            },
+            "category_id5": {
+                "type": "keyword"
+            },
+            "zip": {
+                "type": "keyword"
+            },
+            "address": {
+                "type": "text",
+                "analyzer": "ja_kuromoji_index_analyzer",
+                "search_analyzer": "ja_kuromoji_search_analyzer",
+                "fields": {
+                    "ngram": {
                         "type": "text",
-                        "analyzer": "ja_kuromoji_index_analyzer",
-                        "search_analyzer": "ja_kuromoji_search_analyzer",
-                        "fields": {
-                            "ngram": {
-                                "type": "text",
-                                "analyzer": "ja_ngram_index_analyzer",
-                                "search_analyzer": "ja_ngram_search_analyzer"
-                            }
-                        }
-                    },
-                    "north_latitude": {
-                        "type": "float"
-                    },
-                    "east_longitude": {
-                        "type": "float"
-                    },
-                    "description": {
+                        "analyzer": "ja_ngram_index_analyzer",
+                        "search_analyzer": "ja_ngram_search_analyzer"
+                    }
+                }
+            },
+            "north_latitude": {
+                "type": "float"
+            },
+            "east_longitude": {
+                "type": "float"
+            },
+            "description": {
+                "type": "text",
+                "analyzer": "ja_kuromoji_index_analyzer",
+                "search_analyzer": "ja_kuromoji_search_analyzer",
+                "fields": {
+                    "ngram": {
                         "type": "text",
-                        "analyzer": "ja_kuromoji_index_analyzer",
-                        "search_analyzer": "ja_kuromoji_search_analyzer",
-                        "fields": {
-                            "ngram": {
-                                "type": "text",
-                                "analyzer": "ja_ngram_index_analyzer",
-                                "search_analyzer": "ja_ngram_search_analyzer"
-                            }
-                        }
-                    },
-                    "purpose": {
+                        "analyzer": "ja_ngram_index_analyzer",
+                        "search_analyzer": "ja_ngram_search_analyzer"
+                    }
+                }
+            },
+            "purpose": {
+                "type": "text",
+                "analyzer": "ja_kuromoji_index_analyzer",
+                "search_analyzer": "ja_kuromoji_search_analyzer",
+                "fields": {
+                    "ngram": {
                         "type": "text",
-                        "analyzer": "ja_kuromoji_index_analyzer",
-                        "search_analyzer": "ja_kuromoji_search_analyzer",
-                        "fields": {
-                            "ngram": {
-                                "type": "text",
-                                "analyzer": "ja_ngram_index_analyzer",
-                                "search_analyzer": "ja_ngram_search_analyzer"
-                            }
-                        }
-                    },
-                    "open_morning": {
-                        "type": "integer"
-                    },
-                    "open_lunch": {
-                        "type": "integer"
-                    },
-                    "open_late": {
-                        "type": "integer"
-                    },
-                    "photo_count": {
-                        "type": "integer"
-                    },
-                    "special_count": {
-                        "type": "integer"
-                    },
-                    "menu_count": {
-                        "type": "integer"
-                    },
-                    "fan_count": {
-                        "type": "integer"
-                    },
-                    "access_count": {
-                        "type": "integer"
-                    },
-                    "created_on": {
-                        "type": "date"
-                    },
-                    "modified_on": {
-                        "type": "date"
-                    },
-                    "closed": {
-                        "type": "integer"
-                    },
-                    "area_name": {
+                        "analyzer": "ja_ngram_index_analyzer",
+                        "search_analyzer": "ja_ngram_search_analyzer"
+                    }
+                }
+            },
+            "open_morning": {
+                "type": "integer"
+            },
+            "open_lunch": {
+                "type": "integer"
+            },
+            "open_late": {
+                "type": "integer"
+            },
+            "photo_count": {
+                "type": "integer"
+            },
+            "special_count": {
+                "type": "integer"
+            },
+            "menu_count": {
+                "type": "integer"
+            },
+            "fan_count": {
+                "type": "integer"
+            },
+            "access_count": {
+                "type": "integer"
+            },
+            "created_on": {
+                "type": "date"
+            },
+            "modified_on": {
+                "type": "date"
+            },
+            "closed": {
+                "type": "integer"
+            },
+            "area_name": {
+                "type": "text",
+                "analyzer": "ja_kuromoji_index_analyzer",
+                "search_analyzer": "ja_kuromoji_search_analyzer",
+                "fields": {
+                    "ngram": {
                         "type": "text",
-                        "analyzer": "ja_kuromoji_index_analyzer",
-                        "search_analyzer": "ja_kuromoji_search_analyzer",
-                        "fields": {
-                            "ngram": {
-                                "type": "text",
-                                "analyzer": "ja_ngram_index_analyzer",
-                                "search_analyzer": "ja_ngram_search_analyzer"
-                            }
-                        }
-                    },
-                    "pref_name": {
+                        "analyzer": "ja_ngram_index_analyzer",
+                        "search_analyzer": "ja_ngram_search_analyzer"
+                    }
+                }
+            },
+            "pref_name": {
+                "type": "text",
+                "analyzer": "ja_kuromoji_index_analyzer",
+                "search_analyzer": "ja_kuromoji_search_analyzer",
+                "fields": {
+                    "ngram": {
                         "type": "text",
-                        "analyzer": "ja_kuromoji_index_analyzer",
-                        "search_analyzer": "ja_kuromoji_search_analyzer",
-                        "fields": {
-                            "ngram": {
-                                "type": "text",
-                                "analyzer": "ja_ngram_index_analyzer",
-                                "search_analyzer": "ja_ngram_search_analyzer"
-                            }
-                        }
-                    },
-                    "pref": {
+                        "analyzer": "ja_ngram_index_analyzer",
+                        "search_analyzer": "ja_ngram_search_analyzer"
+                    }
+                }
+            },
+            "pref": {
+                "type": "text",
+                "analyzer": "ja_kuromoji_index_analyzer",
+                "search_analyzer": "ja_kuromoji_search_analyzer",
+                "fields": {
+                    "ngram": {
                         "type": "text",
-                        "analyzer": "ja_kuromoji_index_analyzer",
-                        "search_analyzer": "ja_kuromoji_search_analyzer",
-                        "fields": {
-                            "ngram": {
-                                "type": "text",
-                                "analyzer": "ja_ngram_index_analyzer",
-                                "search_analyzer": "ja_ngram_search_analyzer"
-                            }
-                        }
-                    },
-                    "location": {
-                        "type": "geo_point"
-                    },
-                    "stas": {
+                        "analyzer": "ja_ngram_index_analyzer",
+                        "search_analyzer": "ja_ngram_search_analyzer"
+                    }
+                }
+            },
+            "location": {
+                "type": "geo_point"
+            },
+            "stas": {
+                "type": "text",
+                "analyzer": "ja_kuromoji_index_analyzer",
+                "search_analyzer": "ja_kuromoji_search_analyzer",
+                "fields": {
+                    "ngram": {
                         "type": "text",
-                        "analyzer": "ja_kuromoji_index_analyzer",
-                        "search_analyzer": "ja_kuromoji_search_analyzer",
-                        "fields": {
-                            "ngram": {
-                                "type": "text",
-                                "analyzer": "ja_ngram_index_analyzer",
-                                "search_analyzer": "ja_ngram_search_analyzer"
-                            }
-                        }
-                    },
-                    "cates": {
+                        "analyzer": "ja_ngram_index_analyzer",
+                        "search_analyzer": "ja_ngram_search_analyzer"
+                    }
+                }
+            },
+            "cates": {
+                "type": "text",
+                "analyzer": "ja_kuromoji_index_analyzer",
+                "search_analyzer": "ja_kuromoji_search_analyzer",
+                "fields": {
+                    "ngram": {
                         "type": "text",
-                        "analyzer": "ja_kuromoji_index_analyzer",
-                        "search_analyzer": "ja_kuromoji_search_analyzer",
-                        "fields": {
-                            "ngram": {
-                                "type": "text",
-                                "analyzer": "ja_ngram_index_analyzer",
-                                "search_analyzer": "ja_ngram_search_analyzer"
-                            }
-                        }
-                    },
-                    "kuchikomi": {
+                        "analyzer": "ja_ngram_index_analyzer",
+                        "search_analyzer": "ja_ngram_search_analyzer"
+                    }
+                }
+            },
+            "kuchikomi": {
+                "type": "text",
+                "analyzer": "ja_kuromoji_index_analyzer",
+                "search_analyzer": "ja_kuromoji_search_analyzer",
+                "fields": {
+                    "ngram": {
                         "type": "text",
-                        "analyzer": "ja_kuromoji_index_analyzer",
-                        "search_analyzer": "ja_kuromoji_search_analyzer",
-                        "fields": {
-                            "ngram": {
-                                "type": "text",
-                                "analyzer": "ja_ngram_index_analyzer",
-                                "search_analyzer": "ja_ngram_search_analyzer"
-                            }
-                        }
+                        "analyzer": "ja_ngram_index_analyzer",
+                        "search_analyzer": "ja_ngram_search_analyzer"
                     }
                 }
             }
