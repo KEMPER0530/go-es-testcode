@@ -18,6 +18,12 @@ DataContet については[こちら](https://github.com/KEMPER0530/elastic-demo
 
 # Setup
 
+### ElastiSearch のテストデータ解凍([Zstandard](https://qiita.com/oioi_tec/items/e66ec93824f694a473c9)で圧縮しています)
+
+```
+$ zstd -d /config/elasticsearch/index_settings/test_shop.json.zst
+```
+
 ### Docker の起動、テストデータ投入(30 分くらいかかります)
 
 ```
@@ -35,3 +41,9 @@ $ curl -X GET "http://localhost:8090/v1/findshop?keyword=中華料理&area=東�
 ### kibana の使用例
 
 kibana は[こちら](http://localhost:5601)
+
+### テストコード の実施(実施する場合、上記で起動したコンテナを削除してください)
+
+```
+$ make test
+```
