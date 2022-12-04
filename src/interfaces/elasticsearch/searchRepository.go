@@ -9,8 +9,6 @@ import (
 type SearchRepository struct {
 	EsHost         string
 	EsIndexShop    string
-	EsIndexMenu    string
-	EsIndexSuggest string
 	EsCon          Elastic
 }
 

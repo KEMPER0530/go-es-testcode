@@ -149,3 +149,4 @@ dist
 .DS_Store
 go.sum
 test_shop.json
+test_shop.zip

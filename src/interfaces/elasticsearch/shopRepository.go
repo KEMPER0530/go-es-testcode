@@ -83,7 +83,7 @@ func (repo *SearchRepository) SearchConditionShop(keyword string, area string, n
 		"location",
 		"stas",
 		"cates",
-		// "kuchikomi",
+		"kuchikomi",
 	}
 
 	repo.applyKeyword(keyword, &req)
@@ -101,7 +101,6 @@ func (repo *SearchRepository) applyKeyword(keyword string, req *domain.ShopSearc
 				Query: keyword,
 				Fields: []string{
 					"cates",
-					// "kuchikomi",
 				},
 			},
 		})
