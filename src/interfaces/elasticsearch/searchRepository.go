@@ -7,9 +7,9 @@ import (
 )
 
 type SearchRepository struct {
-	EsHost         string
-	EsIndexShop    string
-	EsCon          Elastic
+	EsHost      string
+	EsIndexShop string
+	EsCon       Elastic
 }
 
 func (s *SearchRepository) ConnectElastic(eshost string) (*elasticsearch.Client, error) {

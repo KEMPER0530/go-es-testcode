@@ -1,15 +1,15 @@
 package usecase
 
 import (
+	"encoding/json"
 	"github.com/golang/mock/gomock"
+	"github.com/stretchr/testify/assert"
 	"go-es-testcode/src/domain"
 	"go-es-testcode/src/usecase"
 	mock_repository "go-es-testcode/src/usecase/mock"
-	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"strings"
 	"testing"
-	"encoding/json"
 )
 
 func Test_FindShop_MockingServerBehavior(t *testing.T) {
@@ -45,12 +45,12 @@ func Test_FindShop_MockingServerBehavior(t *testing.T) {
 
 		// mockで利用するメソッドの返却値を設定する
 		// FindShopListメソッドをmock化
-		MockESRepository.EXPECT().FindShop(gomock.Any(),gomock.Any(),gomock.Any()).Return(&apiResult, nil)
+		MockESRepository.EXPECT().FindShop(gomock.Any(), gomock.Any(), gomock.Any()).Return(&apiResult, nil)
 
 		// mock対象メソッドはレシーバーを設定しているのでmock用のレシーバーに差替え
 		i.ES = MockESRepository
 		// テスト対象のメソッド実行
-		fs, _ := i.FindShop(keyword,area,name)
+		fs, _ := i.FindShop(keyword, area, name)
 		// テストの実施
 		assert.Equal(t, fs.Hits.Hits[0].Source.Id, int64(14018))
 		assert.Equal(t, fs.Hits.Hits[0].Source.Name, "テストラーメン")

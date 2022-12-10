@@ -4,14 +4,14 @@ import (
 	"bytes"
 	"context"
 	"crypto/tls"
+	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"log"
 	"net"
 	"net/http"
 	"os"
 	"strconv"
 	"time"
-	"github.com/elastic/go-elasticsearch/v8"
-	"github.com/elastic/go-elasticsearch/v8/esapi"
 )
 
 type ElasticConnection struct{}

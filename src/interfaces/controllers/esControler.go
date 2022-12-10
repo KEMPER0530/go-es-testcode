@@ -1,10 +1,10 @@
 package controllers
 
 import (
+	"github.com/gin-gonic/gin"
 	"go-es-testcode/src/interfaces/elasticsearch"
 	"go-es-testcode/src/usecase"
 	"os"
-	"github.com/gin-gonic/gin"
 )
 
 type ESController struct {

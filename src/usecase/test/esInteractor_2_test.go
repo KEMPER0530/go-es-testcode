@@ -1,24 +1,24 @@
 package usecase
 
 import (
-	"go-es-testcode/src/usecase"
-	"io/ioutil"
-	"strings"
-	"testing"
 	"bytes"
 	"context"
 	"fmt"
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 	log "github.com/sirupsen/logrus"
+	"github.com/stretchr/testify/assert"
 	"github.com/testcontainers/testcontainers-go"
 	"github.com/testcontainers/testcontainers-go/wait"
-	"github.com/stretchr/testify/assert"
-	"net/http"
-	"time"
-	"os"
-	es "go-es-testcode/src/interfaces/elasticsearch"
 	infra "go-es-testcode/src/infrastructure"
+	es "go-es-testcode/src/interfaces/elasticsearch"
+	"go-es-testcode/src/usecase"
+	"io/ioutil"
+	"net/http"
+	"os"
+	"strings"
+	"testing"
+	"time"
 )
 
 func Test_FindShop_RunningServer(t *testing.T) {
@@ -62,7 +62,7 @@ func Test_FindShop_RunningServer(t *testing.T) {
 		}
 
 		// テスト対象メソッドの呼び出し
-		fs, _ := i.FindShop(keyword,area,name)
+		fs, _ := i.FindShop(keyword, area, name)
 
 		// テストの実施
 		assert.NotEmpty(t, fs)
@@ -71,20 +71,20 @@ func Test_FindShop_RunningServer(t *testing.T) {
 
 // ElasticSearchのコンテナ作成 Port9210でテスト用のElasticSearchコンテナを立ち上げる
 func initElastic(ctx context.Context) (testcontainers.Container, string, error) {
-	e, err := startEsContainer("9200","9300")
+	e, err := startEsContainer("9200", "9300")
 	if err != nil {
 		log.Error("Could not start ES container: " + err.Error())
-		return nil, "" ,err
+		return nil, "", err
 	}
 	ip, err := e.Host(ctx)
 	if err != nil {
 		log.Error("Could not get host where the container is exposed: " + err.Error())
-		return nil, "" ,err
+		return nil, "", err
 	}
 	port, err := e.MappedPort(ctx, "9200")
 	if err != nil {
 		log.Error("Could not retrive the mapped port: " + err.Error())
-		return nil, "" ,err
+		return nil, "", err
 	}
 	baseUrl := fmt.Sprintf("http://%s:%s", ip, port.Port())
 
@@ -97,7 +97,7 @@ func initElastic(ctx context.Context) (testcontainers.Container, string, error) 
 	es, _ := elasticsearch.NewClient(cfg)
 	if err != nil {
 		log.Fatalf("Error creating the client: %s", err)
-		return nil, "" ,err
+		return nil, "", err
 	}
 	// mapping内容の読み込み
 	bytes, err := ioutil.ReadFile("../../../config/elasticsearch/index_settings/shop.json")

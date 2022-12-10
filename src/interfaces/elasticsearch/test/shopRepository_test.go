@@ -4,10 +4,10 @@ import (
 	v8 "github.com/elastic/go-elasticsearch/v8"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
 	"github.com/golang/mock/gomock"
+	"github.com/stretchr/testify/assert"
 	"go-es-testcode/src/infrastructure"
 	"go-es-testcode/src/interfaces/elasticsearch"
 	mock_elasticsearch "go-es-testcode/src/interfaces/elasticsearch/mock"
-	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"strings"
 	"testing"
@@ -55,7 +55,7 @@ func Test_FindShopList(t *testing.T) {
 		keyword := "ラーメン"
 		area := "東京都"
 		name := ""
-		fs, _ := r.FindShop(keyword,area,name)
+		fs, _ := r.FindShop(keyword, area, name)
 		// テストの実施
 		assert.Equal(t, fs.Hits.Hits[0].Source.Id, int64(14018))
 		assert.Equal(t, fs.Hits.Hits[0].Source.Name, "テストラーメン")
