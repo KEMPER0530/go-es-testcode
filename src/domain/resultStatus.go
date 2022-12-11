@@ -1,7 +1,6 @@
-package usecase
+package domain
 
 import (
-	"log"
 	"os"
 	"time"
 )
@@ -31,6 +30,5 @@ func NewResultStatus(code int) ResultStatus {
 	resultStatus.Time = time.Now().In(jst)
 	resultStatus.Host, _ = os.Hostname()
 
-	log.Println(resultStatus)
 	return resultStatus
 }

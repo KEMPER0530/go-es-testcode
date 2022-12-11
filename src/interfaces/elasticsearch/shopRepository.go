@@ -14,11 +14,13 @@ func (r *SearchRepository) FindShop(keyword string, area string, name string) (*
 		log.Println(err)
 		return nil, err
 	}
+
 	res, err := r.EsCon.Search(r.EsIndexShop, buf, e)
 	if err != nil {
 		log.Printf("Error getting response: %s\n", err)
 		return nil, err
 	}
+
 	defer res.Body.Close()
 	if res.IsError() {
 		log.Printf("failed to update with elastic search. Not ok. %s\n", res.Status())

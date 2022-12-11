@@ -8,11 +8,11 @@ type ESInteractor struct {
 	ES ESRepository
 }
 
-func (interactor *ESInteractor) FindShop(keyword string, area string, name string) (ss *domain.ShopSearch, resultStatus ResultStatus) {
+func (interactor *ESInteractor) FindShop(keyword string, area string, name string) (ss *domain.ShopSearch, resultStatus domain.ResultStatus) {
 	c, err := interactor.ES.FindShop(keyword, area, name)
 	if err != nil {
-		return &domain.ShopSearch{}, NewResultStatus(500)
+		return &domain.ShopSearch{}, domain.NewResultStatus(500)
 	}
 
-	return c, NewResultStatus(200)
+	return c, domain.NewResultStatus(200)
 }

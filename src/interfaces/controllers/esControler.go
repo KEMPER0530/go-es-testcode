@@ -24,6 +24,6 @@ func NewESController(ec elasticsearch.Elastic) *ESController {
 }
 
 func (controller *ESController) FindShop(c *gin.Context) {
-	ES, res := controller.Interactor.FindShop(c.Query("keyword"), c.Query("area"), c.Query("name"))
-	c.JSON(res.Code, ES)
+	ss, res := controller.Interactor.FindShop(c.Query("keyword"), c.Query("area"), c.Query("name"))
+	c.JSON(res.Code, ss)
 }

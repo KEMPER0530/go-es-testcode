@@ -1,4 +1,4 @@
-package usecase
+package elasticsearch
 
 import (
 	"bytes"
@@ -10,10 +10,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/testcontainers/testcontainers-go"
 	"github.com/testcontainers/testcontainers-go/wait"
-	"go-es-testcode/src/domain"
 	infra "go-es-testcode/src/infrastructure"
-	es "go-es-testcode/src/interfaces/elasticsearch"
-	"go-es-testcode/src/usecase"
+	"go-es-testcode/src/interfaces/elasticsearch"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -22,7 +20,7 @@ import (
 	"time"
 )
 
-func Test_usecase_FindShop_RunningServer(t *testing.T) {
+func Test_interfaces_FindShop_RunningServer(t *testing.T) {
 
 	// 検索ワードの設定
 	keyword := "ラーメン"
@@ -30,7 +28,7 @@ func Test_usecase_FindShop_RunningServer(t *testing.T) {
 	name := ""
 
 	// 共通利用するstructを設定
-	var i usecase.ESInteractor
+	var r elasticsearch.SearchRepository
 
 	// 環境変数定義
 	os.Setenv("ELASTIC_INDEX_SHOP", "test_shop")
@@ -49,29 +47,29 @@ func Test_usecase_FindShop_RunningServer(t *testing.T) {
 	defer elastic.Terminate(ctx)
 
 	// データ投入
-	r, _ := fillElasticWithData(baseUrl)
-	if r.StatusCode == 400 {
+	res, _ := fillElasticWithData(baseUrl)
+	if res.StatusCode == 400 {
 		log.Error("Bulk insert failed.")
 	}
 
 	t.Run("【正常系】FindShopメソッドのテスト(DockerコンテナーでElasticsearchの実際のインスタンスを実行)", func(t *testing.T) {
 
-		i.ES = &es.SearchRepository{
-			EsHost:      baseUrl,
-			EsIndexShop: os.Getenv("ELASTIC_INDEX_SHOP"),
-			EsCon:       &es.SearchRepository{EsCon: &infra.ElasticConnection{}},
-		}
+		// ElasticSearchの接続先を設定
+		r.EsHost = baseUrl
+		r.EsIndexShop = os.Getenv("ELASTIC_INDEX_SHOP")
+		r.EsCon = &infra.ElasticConnection{}
 
+		// time.Sleep(time.Second * 300)
 		// テスト対象メソッドの呼び出し
-		fs, status := i.FindShop(keyword, area, name)
+		fs, err := r.FindShop(keyword, area, name)
 
 		// テストの実施
 		assert.NotEmpty(t, fs)
-		assert.Equal(t, status.Code, domain.NewResultStatus(200).Code)
+		assert.Equal(t, err, nil)
 	})
 }
 
-// ElasticSearchのコンテナ作成 Port:9200でテスト用のElasticSearchコンテナを立ち上げる
+// ElasticSearchのコンテナ作成 Port:9200でテスト用のElasticSearchコンテナを立ち上げ
 func initElastic(ctx context.Context) (testcontainers.Container, string, error) {
 	e, err := startEsContainer("9200", "9300")
 	if err != nil {
@@ -102,7 +100,7 @@ func initElastic(ctx context.Context) (testcontainers.Container, string, error) 
 		return nil, "", err
 	}
 	// mapping内容の読み込み
-	bytes, err := ioutil.ReadFile("../../../config/elasticsearch/index_settings/shop.json")
+	bytes, err := ioutil.ReadFile("../../../../config/elasticsearch/index_settings/shop.json")
 	if err != nil {
 		log.Error("Could not read shop.json: " + err.Error())
 		return nil, "", err
@@ -124,7 +122,7 @@ func startEsContainer(restPort string, nodesPort string) (testcontainers.Contain
 
 	reqes5 := testcontainers.ContainerRequest{
 		FromDockerfile: testcontainers.FromDockerfile{
-			Context:    "../../../config/elasticsearch",
+			Context:    "../../../../config/elasticsearch/",
 			Dockerfile: "Dockerfile",
 		},
 		Name:         "es-mock",
@@ -156,7 +154,6 @@ func createIndex(client *v8.Client, mapping string) error {
 		return err
 	}
 	defer res.Body.Close()
-	log.Info(res)
 
 	return nil
 }
@@ -164,15 +161,14 @@ func createIndex(client *v8.Client, mapping string) error {
 // データ投入 BulkInsertでデータを投入する
 func fillElasticWithData(baseUrl string) (*http.Response, error) {
 
-	b, err := ioutil.ReadFile("../../../config/elasticsearch/test_data/test_data_2.json")
+	b, err := ioutil.ReadFile("../../../../config/elasticsearch/test_data/test_data_2.json")
 	if err != nil {
 		panic(err)
 	}
 
-	ndJSON := string(b)
 	client := http.Client{}
-	req, err := http.NewRequest("POST", baseUrl+"/_bulk", bytes.NewBuffer([]byte(ndJSON)))
-	req.Header.Set("content-type", "application/json")
+	req, err := http.NewRequest("POST", baseUrl+"/_bulk?pretty", bytes.NewBuffer(b))
+	req.Header.Set("Content-Type", "application/x-ndjson")
 	res, err := client.Do(req)
 	if err != nil {
 		log.Error("Could not perform a bulk operation")
