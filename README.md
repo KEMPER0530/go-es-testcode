@@ -1,14 +1,14 @@
 # Testing Elasticsearch App
 
-Go言語+Elasticsearch on docker.
+Go 言語(gin)+Elasticsearch on docker.
 
 # Features
 
-ElasticSearchを利用したレストラン検索を実施する練習用のリポジトリです。
+ElasticSearch を利用したレストラン検索を実施する練習用のリポジトリです。
 [ライブドアグルメデータ](https://github.com/livedoor/datasets)を編集し、
-ElasticSearchへ登録してクエリの検証を実施します。
+ElasticSearch へ登録してクエリの検証を実施します。
 
-DataContetについては[こちら](https://github.com/KEMPER0530/elastic-demo)を参照
+DataContet については[こちら](https://github.com/KEMPER0530/elastic-demo)を参照
 
 ## Dependency
 
@@ -21,22 +21,22 @@ DataContetについては[こちら](https://github.com/KEMPER0530/elastic-demo)
 [Qiita の記事]()で記載しているテストコード実施のコマンドです。
 下記のテストを実施します。
 
-- [Elasticsearch サーバーの動作をモックする方法](https://github.com/KEMPER0530/go-es-testcode/blob/main/src/usecase/test/esInteractor_1_test.go)
-- [Docker コンテナーで Elasticsearch のインスタンスを実行する方法](https://github.com/KEMPER0530/go-es-testcode/blob/main/src/usecase/test/esInteractor_2_test.go)
+- [Elasticsearch サーバーの動作をモックする方法](https://github.com/KEMPER0530/go-es-testcode/blob/main/src/interfaces/elasticsearch/test/shopRepository_1_test.go)
+- [Docker コンテナーで Elasticsearch のインスタンスを実行する方法](https://github.com/KEMPER0530/go-es-testcode/blob/main/src/interfaces/elasticsearch/test/shopRepository_2_test.go)
 
 ```
 $ make test
 ```
 
-## Setup
+## Setup（以下は ElasticSearch を Docker で構築し Go 経由で結果を返却するアプリになります）
 
-### ElasticSearchのテストデータ解凍（[Zstandard](https://qiita.com/oioi_tec/items/e66ec93824f694a473c9)で圧縮しています）
+### ElasticSearch のテストデータ解凍（[Zstandard](https://qiita.com/oioi_tec/items/e66ec93824f694a473c9)で圧縮しています）
 
 ```
 $ zstd -d /config/elasticsearch/index_settings/test_shop.json.zst
 ```
 
-### Dockerの起動、テストデータ投入（30分くらいかかります）
+### Docker の起動、テストデータ投入（30 分くらいかかります）
 
 ```
 $ make setup
@@ -44,12 +44,12 @@ $ make setup
 
 ## Usage
 
-### 検索例（jqコマンドを利用することで見やすくなります）
+### 検索例（jq コマンドを利用することで見やすくなります）
 
 ```
 $ curl -X GET "http://localhost:8090/v1/findshop?keyword=中華料理&area=東京&name=謝" | jq
 ```
 
-### kibanaの使用
+### kibana の使用
 
-kibanaは[こちら](http://localhost:5601)
+kibana は[こちら](http://localhost:5601)
