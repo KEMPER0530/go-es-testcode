@@ -13,22 +13,17 @@ type ResultStatus struct {
 }
 
 func NewResultStatus(code int) ResultStatus {
-	resultStatus := ResultStatus{}
-
-	if code == 200 {
-		resultStatus.Code = 200
-		resultStatus.DBSts = "CONNECTED"
-	} else if code == 404 {
-		resultStatus.Code = 404
-		resultStatus.DBSts = "UNCONNECTED"
-	} else {
-		resultStatus.Code = 500
-		resultStatus.DBSts = "UNCONNECTED"
+	var resultStatus ResultStatus
+	switch code {
+	case 200:
+		resultStatus = ResultStatus{Code: 200, DBSts: "CONNECTED"}
+	case 404:
+		resultStatus = ResultStatus{Code: 404, DBSts: "UNCONNECTED"}
+	default:
+		resultStatus = ResultStatus{Code: 500, DBSts: "UNCONNECTED"}
 	}
-	// 日本時間へ変換
-	jst, _ := time.LoadLocation("Asia/Tokyo")
-	resultStatus.Time = time.Now().In(jst)
-	resultStatus.Host, _ = os.Hostname()
-
+	resultStatus.Time = time.Now().In(time.FixedZone("JST", 9*60*60))
+	host, _ := os.Hostname()
+	resultStatus.Host = host
 	return resultStatus
 }

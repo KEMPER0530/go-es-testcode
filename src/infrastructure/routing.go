@@ -10,58 +10,41 @@ import (
 	"go-es-testcode/src/interfaces/controllers"
 )
 
-type Routing struct {
-	Gin  *gin.Engine
-	Port string
+type Router struct {
+	ginEngine *gin.Engine
+	port      string
 }
 
-func NewRouting() *Routing {
-	r := &Routing{
-		Gin:  gin.Default(),
-		Port: ":" + os.Getenv("PORT"),
+func NewRouter() *Router {
+	router := &Router{
+		ginEngine: gin.Default(),
+		port:      ":" + os.Getenv("PORT"),
 	}
-	r.setRouting()
-	return r
+	router.setRouting()
+	return router
 }
 
-func (r *Routing) setRouting() {
-
-	// 本番設定の場合
-	if os.Getenv("GO_ENV") == "production" {
-		os.Setenv("GIN_MODE", "release")
-		gin.SetMode(gin.ReleaseMode)
-	}
-
-	// CORS設定
-	r.Gin.Use(setCors())
+func (r *Router) setRouting() {
+	r.setCORS()
 
 	// コントローラーの設定
-	ESController := controllers.NewESController(&ElasticConnection{})
+	esController := controllers.NewESController(&ElasticConnection{})
 	// ElasticSearchにアクセスして接続確認を行う
-	r.Gin.GET("/v1/findshop", func(c *gin.Context) { ESController.FindShop(c) })
-
+	r.ginEngine.GET("/v1/findshop", esController.FindShop)
 }
 
-func Run(r *Routing) {
-	r.Gin.Run(r.Port)
+func Run(r *Router) {
+	r.ginEngine.Run(r.port)
 }
 
-// Cross-Origin Resource Sharing (CORS) is a mechanism
-// that uses additional HTTP headers to let a
-// user agent gain permission to access selected resources from a server
-// on a different origin /(domain) than the site currently in use.
-// CORS for All origins, allowing:
-// - PUT and PATCH methods
-// - Origin header
-// - Credentials share
-// - Preflight requests cached for 1 hours
-func setCors() gin.HandlerFunc {
-	return cors.New(cors.Config{
+// Cross-Origin Resource Sharing (CORS) 設定
+func (r *Router) setCORS() {
+	r.ginEngine.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"*"},
 		AllowMethods:     []string{"GET", "POST", "OPTIONS", "PUT", "PATCH"},
 		AllowHeaders:     []string{"Origin", "Authorization", "Accept", "Content-Type"},
 		ExposeHeaders:    []string{"Content-Length", "Cache-Control", "Content-Type"},
 		AllowCredentials: true,
 		MaxAge:           1 * time.Hour,
-	})
+	}))
 }
