@@ -18,7 +18,7 @@ DataContet については[こちら](https://github.com/KEMPER0530/elastic-demo
 
 ## テストコードの実施
 
-[Qiita の記事]()で記載しているテストコード実施のコマンドです。
+[Qiita の記事](https://qiita.com/y-aka/items/cc01a4a70b2b2ac5beb7)で記載しているテストコード実施のコマンドです。
 下記のテストを実施します。
 
 - [Elasticsearch サーバーの動作をモックする方法](https://github.com/KEMPER0530/go-es-testcode/blob/main/src/interfaces/elasticsearch/test/shopRepository_1_test.go)
