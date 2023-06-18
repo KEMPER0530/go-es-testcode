@@ -14,6 +14,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	r := infrastructure.NewRouting()
+	r := infrastructure.NewRouter()
 	infrastructure.Run(r)
 }

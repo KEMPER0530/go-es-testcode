@@ -22,6 +22,10 @@ import (
 	"time"
 )
 
+// Elasticsearchのポート
+const restPort = "9200"
+const nodesPort = "9300"
+
 func Test_usecase_FindShop_RunningServer(t *testing.T) {
 
 	// 検索ワードの設定
@@ -71,9 +75,9 @@ func Test_usecase_FindShop_RunningServer(t *testing.T) {
 	})
 }
 
-// ElasticSearchのコンテナ作成 Port:9200でテスト用のElasticSearchコンテナを立ち上げる
+// ElasticSearchのコンテナ作成 Port:9201でテスト用のElasticSearchコンテナを立ち上げる
 func initElastic(ctx context.Context) (testcontainers.Container, string, error) {
-	e, err := startEsContainer("9200", "9300")
+	e, err := startEsContainer(restPort, nodesPort)
 	if err != nil {
 		log.Error("Could not start ES container: " + err.Error())
 		return nil, "", err
@@ -83,7 +87,7 @@ func initElastic(ctx context.Context) (testcontainers.Container, string, error) 
 		log.Error("Could not get host where the container is exposed: " + err.Error())
 		return nil, "", err
 	}
-	port, err := e.MappedPort(ctx, "9200")
+	port, err := e.MappedPort(ctx, restPort)
 	if err != nil {
 		log.Error("Could not retrive the mapped port: " + err.Error())
 		return nil, "", err
@@ -166,19 +170,52 @@ func fillElasticWithData(baseUrl string) (*http.Response, error) {
 
 	b, err := ioutil.ReadFile("../../../config/elasticsearch/test_data/test_data_2.json")
 	if err != nil {
-		panic(err)
+		log.Errorf("Error reading response body: %v", err)
 	}
 
 	ndJSON := string(b)
+	// Log request body and response body
+	log.Infof("Bulk request body: %v", ndJSON)
+
 	client := http.Client{}
 	req, err := http.NewRequest("POST", baseUrl+"/_bulk", bytes.NewBuffer([]byte(ndJSON)))
 	req.Header.Set("content-type", "application/json")
 	res, err := client.Do(req)
 	if err != nil {
 		log.Error("Could not perform a bulk operation")
+		return nil, err
 	}
+
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+    log.Errorf("Error reading response body: %v", err)
+		return nil, err
+	}
+	log.Infof("Bulk response body: %v", string(body))
+
 	defer res.Body.Close()
 	log.Info("Bulk-insert:", res.StatusCode)
 
-	return res, err
+// Search data in index
+searchReq, err := http.NewRequest("GET", baseUrl+"/test_shop/_search", nil)
+if err != nil {
+	return nil, err
+}
+
+client = http.Client{}
+searchRes, err := client.Do(searchReq)
+
+if err != nil {
+	return nil, err
+}
+
+searchBody, err := ioutil.ReadAll(searchRes.Body)
+if err != nil {
+	return nil, err
+}
+
+log.Infof("Search response: %v", string(searchBody))
+defer searchRes.Body.Close()
+
+	return res, nil
 }
